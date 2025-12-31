@@ -36,7 +36,7 @@ def loading_json_into_stage(file, stage, cursor):
 
 def porting_json_data_in (file, stage, cursor): 
     cursor.execute(
-        'CREATE OR REPLACE TEMPORARY TABLE json_basic_code (json_data VARIANT)'
+        'CREATE OR REPLACE TABLE json_basic_code (json_data VARIANT)'
         )
     cursor.execute(
         '''

@@ -106,7 +106,7 @@ def scraping_average_deck_makeup(driver):
                 continue
             else:
                 Cleaned_String = re.sub(r'([^%]+)$', "", raw_string)
-                Card_Name = ((re.search(r'[A-Za-z\s]+', Cleaned_String)).group()).strip()
+                Card_Name = ((re.search(r"[^0-9]+", Cleaned_String)).group()).strip()
                 Average_Number_Played = (re.search(r'^[0-9]', Cleaned_String)).group()
                 Play_Percentage = (re.search(r'[0-9%.]+$', Cleaned_String)).group()
                 deck_dict = pd.concat([pd.DataFrame(
@@ -144,14 +144,15 @@ def average_deck_makeup_local_copy(deck_list):
     return(file_name)
 
 def meta_data_local_copy(metadata):
-    import pandas
+    import pandas as pd
     from datetime import date
     from pathlib import Path    
     date = (str(date.today())).replace('-','_')
-    path_string = '../data/Archetype-Analysis/metadata_' + date + '.csv'
-    filepath = Path(path_string) 
+    file_name = 'metadata_' + date + '.csv'
+    filepath = Path('../data/Archetype-Analysis/' + file_name) 
     filepath.parent.mkdir(parents=True, exist_ok=True)  
-    metadata.to_csv(filepath)  
+    metadata.to_csv(filepath, index=False)
+    return(file_name)
     
  
     
